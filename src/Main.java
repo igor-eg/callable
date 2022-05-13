@@ -8,12 +8,12 @@ import java.util.concurrent.ExecutorService;
 public class Main {
 
     public static void main(String args[]) throws InterruptedException, ExecutionException {
-        List<Future<String>> futures = new ArrayList<Future<String>>();
+        int numberThreads = 4;
         Callable<String> callable = new CallableClass();
         List<Callable<String>> callables = new ArrayList<>();
         ExecutorService ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < numberThreads; i++) {
             callables.add(new CallableClass());
             ex.submit(callable);// запускаем потоки
 
