@@ -1,6 +1,5 @@
 import java.util.concurrent.ExecutionException;
 import java.util.*;
-import java.util.concurrent.Future;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
@@ -18,10 +17,17 @@ public class Main {
             ex.submit(callable);// запускаем потоки
 
         }
-        String t = ex.invokeAny(callables); // повторно запускаем потоки и проверяем кто первым завершил работу,
-        // выводим на печать
-        System.out.println(t);
 
+        try {
+            String t = ex.invokeAny(callables); // повторно запускаем потоки и проверяем кто первым завершил работу,
+            // выводим на печать
+            System.out.println(t);
+            ex.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
 }
